@@ -53,7 +53,7 @@ resource "tfe_policy_set" "global" {
     #"${tfe_sentinel_policy.require-modules-from-pmr.id}",
   ]
 }
-
+/*
 resource "tfe_policy_set" "production" {
   name         = "production"
   description  = "Policies that should be enforced on production infrastructure."
@@ -96,7 +96,7 @@ resource "tfe_policy_set" "sentinel" {
     "${local.workspaces["tfe-policies"]}",
   ]
 }
-
+*/
 # Test/experimental policies:
 
 resource "tfe_sentinel_policy" "passthrough" {
@@ -185,20 +185,22 @@ resource "tfe_sentinel_policy" "gcp-restrict-machine-type" {
   enforce_mode = "soft-mandatory"
 }
 
+/*
 # Policy that requires modules to come from Private Module Registry
-#data "template_file" "require-modules-from-pmr" {
-#  template = "${file("./require-modules-from-pmr.sentinel")}"
+data "template_file" "require-modules-from-pmr" {
+  template = "${file("./require-modules-from-pmr.sentinel")}"
 
-#  vars {
-#    hostname = "${var.tfe_hostname}"
-#    organization = "${var.tfe_organization}"
-#  }
-#}
+  vars {
+    hostname = "${var.tfe_hostname}"
+    organization = "${var.tfe_organization}"
+  }
+}
 
-#resource "tfe_sentinel_policy" "require-modules-from-pmr" {
-#  name         = "require-modules-from-pmr"
-#  description  = "Require all modules to come from the Private Module Registy of the current org"
-#  organization = "${var.tfe_organization}"
-#  policy       = "${data.template_file.require-modules-from-pmr.rendered}"
-#  enforce_mode = "hard-mandatory"
-#} 
+resource "tfe_sentinel_policy" "require-modules-from-pmr" {
+  name         = "require-modules-from-pmr"
+  description  = "Require all modules to come from the Private Module Registy of the current org"
+  organization = "${var.tfe_organization}"
+  policy       = "${data.template_file.require-modules-from-pmr.rendered}"
+  enforce_mode = "hard-mandatory"
+} 
+*/
